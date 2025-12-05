@@ -13,7 +13,7 @@ export default function Home() {
     if (!nome) return;
 
     try {
-      const response = await fetch(`${URL_POKEMON}/${nome}`)
+      const response = await fetch(`${URL_POKEMON}/${nome}`);
       const data = await response.json();
       setDado(data);
     } catch (error) {
