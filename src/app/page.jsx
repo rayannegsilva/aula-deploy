@@ -17,7 +17,7 @@ export default function Home() {
       const data = await response.json();
       setDado(data);
     } catch (error) {
-      console.error("Erro ao buscar Pokémon:", error);
+      console.error("Erro ao buscar Pokémon:", error)
     }
   }
 
