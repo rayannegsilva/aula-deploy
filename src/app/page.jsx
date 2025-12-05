@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
-  const URL_POKEMON = "https://pokeapi.co/api/v2/pokemon"
+  const URL_POKEMON = process.env.API_URL;
 
   const [dado, setDado] = useState(null);
   const [nome, setNome] = useState();
