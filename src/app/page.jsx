@@ -1,33 +1,23 @@
 'use client';
 
+import { fetchPokemon } from "../chamadas/api";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
-  const URL_POKEMON = process.env.NEXT_PUBLIC_API_URL;
 
   const [dado, setDado] = useState(null);
-  const [nome, setNome] = useState();
-
-  async function fetchPokemon(nome) {
-    if (!nome) return;
-
-    try {
-      const response = await fetch(`${URL_POKEMON}/${nome}`);
-      const data = await response.json();
-      setDado(data);
-    } catch (error) {
-      console.error("Erro ao buscar Pokémon:", error)
-    }
-  }
+  const [nome, setNome] = useState('');
 
   function handleSetNome(event) {
-    setNome(event.target.value)
+    setNome(event.target.value);
   }
 
-  function onSubmit(event) {
-    event.preventDefault()
-    fetchPokemon(nome)
+  async function onSubmit(event) {
+    event.preventDefault();
+    const normalized = String(nome || '').trim().toLowerCase();
+    const data = await fetchPokemon(normalized);
+    setDado(data);
   }
 
 
@@ -36,7 +26,7 @@ export default function Home() {
       <h1 className="text-3xl">Página inicial "/"</h1>
 
       <form onSubmit={onSubmit}>
-        <input type="text" onChange={handleSetNome} />
+        <input type="text" value={nome} onChange={handleSetNome} placeholder="Nome do Pokémon" />
         <button type="submit">Pesquisar pokemon</button>
       </form>
       {dado && (
